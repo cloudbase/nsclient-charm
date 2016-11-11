@@ -1,0 +1,59 @@
+options:
+  installer-url:
+    type: string
+    description: |
+      Download URL for the Windows MSI or ZIP installer. If this is not set,
+      charm uses the juju resources or the default upstream installers.
+  password:
+    type: string
+    description: |
+      Password to use for Nagios administrative access. This is used only for check_nt protocol.
+  allowed-hosts:
+    type: string
+    default: 127.0.0.1
+    description: |
+      These are the Nagios servers allowed to connect to this NSClient.
+      Multiple hosts can be given as a comma-delimited list.
+  nrpe-port:
+    type: int
+    default: 5666
+    description: "The TCP port used by NSClient to listen for requests."
+  nsclient-port:
+    type: int
+    default: 12489
+    description: |
+      Port used by a server that listens for incoming check_nt connection and
+      processes incoming requests.
+  use-ssl:
+    type: boolean
+    default: True
+    description: "This option controls if SSL is enabled or not."
+  insecure:
+    type: boolean
+    default: True
+    description: |
+      Boolean value which indicates if HTTPS insecure connections are permitted.
+  ssl-options:
+    type: string
+    default: "no-sslv2,no-sslv3"
+    description: "Options for configuring NSClient SSL."
+  allow-nasty-characters:
+    type: boolean
+    default: True
+    description: |
+      Indicates if this NSClient permits sending some characters which are consired
+      harmful through NRPE. See 'http://docs.nsclient.org/faq/' at section 'Nasty metacharacters'.
+  allow-arguments:
+    type: boolean
+    default: True
+    description: |
+      Determines whether or not we will allow clients to specify arguments
+      to commands that are executed.
+  extended-response:
+    type: boolean
+    default: False
+    description: "Send more than 1 return packet to allow response to go beyond payload size."
+  monitors:
+    type: string
+    description: |
+      Additional check fields. See README for more details and usage.
