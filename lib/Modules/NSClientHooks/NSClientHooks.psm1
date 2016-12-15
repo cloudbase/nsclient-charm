@@ -214,6 +214,18 @@ function Start-InstallHook {
     }
     Get-Service -Name $services["nsclient"]["service"]
     Set-Service -Name $services["nsclient"]["service"] -StartupType Automatic
+
+    # Enabled the predefined firewall rules for the ICMP as Nagios checks
+    # if a host is up by trying to ping it.
+    $icmpFirewallRulesNames = @(
+        'FPS-ICMP4-ERQ-In-NoScope',
+        'FPS-ICMP6-ERQ-In-NoScope',
+        'FPS-ICMP4-ERQ-In',
+        'FPS-ICMP6-ERQ-In')
+    $rules = Get-NetFirewallRule | Where-Object { $_.Name -in $firewallPingRules }
+    if($rules) {
+        $rules | ForEach-Object { Enable-NetFirewallRule -Name $_.Name }
+    }
 }
 
 function Start-ConfigChangedHook {
